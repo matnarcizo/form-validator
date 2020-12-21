@@ -49,18 +49,25 @@ function checkEmail(input) {
 
 function checkPassword(password, confirmPassword) {
   if (password.value !== confirmPassword.value) {
-    showError(confirmPassword, 'As senhas não ')
+    showError(confirmPassword, 'A senha não é igual a informada')
   } else {
     showSuccess(confirmPassword)
   }
 }
 
-form.addEventListener('submit', e => {
-  e.preventDefault()
-
-  checkRequired([username, email, password, confirmPassword])
+username.addEventListener('change', () => {
+  checkRequired([username])
   checkLength(username, 3, 15)
-  checkLength(password, 6, 25)
+})
+
+email.addEventListener('change', () => {
+  checkRequired([email])
   checkEmail(email)
+})
+
+password.addEventListener('change', () => checkLength(password, 6, 25))
+
+confirmPassword.addEventListener('change', () => {
+  checkLength(password, 6, 25)
   checkPassword(password, confirmPassword)
 })
